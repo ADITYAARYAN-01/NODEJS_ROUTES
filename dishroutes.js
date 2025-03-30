@@ -43,4 +43,22 @@ routes.get('/:flavours_asked', async (req, res) => {
         res.status(500).json({ error: 'internal server error' });
     }
 })
+routes.delete('/:id' ,async(req,res)=>{
+    try{
+        const ID = req.params.id;
+        const response = await DISH.findByIdAndDelete(ID);
+        if(!response){
+            console.log("not found");
+            res.status(404).json
+        }
+        else{
+            console.log("deleted");
+            res.status(200).json(response+"\ndeleted");
+        }
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json
+    }
+})
 module.exports = routes;
